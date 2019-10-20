@@ -3,17 +3,16 @@ import socket
 import threading
 from queue import Queue
 
-NUMBER_OF_THREADS = 8
+NUMBER_OF_THREADS = 3
 # 1. handles client connections
-# 2. reads data from sensors and adds it to a queue. Also processes the data and stores it to file
+# 2. reads data from sensors and adds it to a queue. Also, processes the data and stores it to file
 JOB_NUMBER = [1, 2, 3]
 job_queue = Queue()
-# A queue to which we add data from the sensors and processed by other threads
+# A queue to which we add data from the sensors and is processed by other threads
 data_queue = Queue()
 all_connections = []
 all_address = []
-all_sensors = []  # On connecting, the sensor sends its id, which is then added to the list of sensors
-sensors = [1,2]
+sensors = [1, 2]
 
 # List all Settings/Configs from the WITHROBOT Sensor
 ID = 0
@@ -26,6 +25,7 @@ dt = datetime.datetime.now()
 # The name of the file storing our data for this session
 RAW_DATA_FILE = f"data/raw_data_{dt.date()}_{dt.hour}-{dt.minute}-{dt.second}"
 
+
 # Thread 1 handles socket connections and disconnections
 # Create a Socket (connect two devices)
 def create_socket():
@@ -36,6 +36,7 @@ def create_socket():
         host = ""
         port = 5500
         s = socket.socket()
+        print('Socket created')
 
     except socket.error as msg:
         print("Socket creation error: " + str(msg))
@@ -51,6 +52,7 @@ def bind_socket():
 
         s.bind((host, port))
         s.listen(10)
+        print('Socket now listening')
 
     except socket.error as msg:
         print("Socket Binding error" + str(msg) + "\n" + "Retrying...")
@@ -65,97 +67,120 @@ def accepting_connections():
 
     del all_connections[:]
     del all_address[:]
-    del all_sensors[:]
 
     while True:
         try:
             conn, address = s.accept()
+            # Remove client entry with the same ip address
+            idx = 0
+            for ip, pt in all_address:
+                if address[0] == ip:
+                    print("Client already exists")
+                    all_connections[idx].close()
+                    del all_connections[idx]
+                    del all_address[idx]
+                idx += 1
+
             s.setblocking(True)  # prevents a timeout
 
             all_connections.append(conn)
             all_address.append(address)
 
             print(f"Connection has been established : {address[0]}")
+            print(f"All clients:", all_address)
 
         except:
             print("Error accepting connections")
 
 
-# 2nd thread functions - 1) Receive data from sensors 2) Add received data to data queue 3) then process it
+# 2nd thread functions - 1) Receive data from sensors 2) Add received data to data queue
 def receive_data():
     while True:
         for i, conn in enumerate(all_connections):
-            if conn is not None:
-                get_data(conn)
+            try:
+                # receive data from sensor
+                buffer = conn.recv(10240)
+                if len(buffer) > 0:
+                    # let's read the buffer into memory
+                    current_batch = buffer.decode("ascii")
+                    data_samples = list(current_batch.split(";"))
+                    timestamp = str(datetime.datetime.now())
+                    data_samples.insert(0, timestamp)
 
-            else:
-                print(f"No sensors found")
+                    # add data samples to data queue
+                    data_queue.put(data_samples)
+                    # All data has been received
+            except:
+                print("Error receiving data")
+                del all_connections[i]
+                del all_address[i]
+                continue
 
 
-# Receive data from target device and process it
+# 3rd thread functions - 1) Read data from the queue. 2) Process it
 def get_data(conn):
-    data_samples = ""  # Chunks of data read from the buffer
-    print("Here")
     try:
         # receive data from sensor
         buffer = conn.recv(10240)
         if len(buffer) > 0:
-            # let's read the buffer into memory and join it until we find the end
+            # let's read the buffer into memory
             current_batch = buffer.decode("ascii")
-            data_samples = f"{data_samples}{current_batch}"
+            data_samples = list(current_batch.split(";"))
+            timestamp = str(datetime.datetime.now())
+            data_samples.insert(0, timestamp)
 
-            # Checks whether we've reached the end of the data being read
-            if "e" in data_samples:
-                # Process this data
-                timestamp = datetime.datetime.now()
-                data_samples = data_samples.split(';')  # In case we get more than 1 sample at a time
-                print("dataArray: ", data_samples)
-                store_data(timestamp, data_samples)
-
-        if len(buffer) <= 0:  # All data has been received
-            pass
+            # add data samples to data queue
+            data_queue.put(data_samples)
+            # All data has been received
+            return True
+        else:
+            return False
     except:
         print("Error receiving data")
+        return False
 
 
-def store_data(timestamp, data):
-    for sample in data:
-        # Let's make sure each sample contains enough data
-        sample = sample.replace("s", "").replace("e", "")
-        sample = sample.split(",")
-
+# 3rd thread functions - 1) Read data from the queue. 2) Process it
+def store_data():
+    count = 1
+    while True:
+        # List unpacking
         try:
-            if len(sample) < EUL_Z:
-                continue
-            else:
-                print(timestamp, ":", sample)
-                sensor_id = int(sample[ID])
-                acc_x, acc_y, acc_z = float(sample[ACC_X]), float(sample[ACC_Y]), float(
-                    sample[ACC_Z])
-                gyro_x, gyro_y, gyro_z = float(sample[GYRO_X]), float(sample[GYRO_Y]), float(
-                    sample[GYRO_Z])
-                lacc_x, lacc_y, lacc_z = float(sample[LACC_X]), float(sample[LACC_Y]), float(
-                    sample[LACC_Z])
-                eul_x, eul_y, eul_z = float(sample[EUL_X]), float(sample[EUL_Y]), float(
-                    sample[EUL_Z])
-                # Add the raw data to a file
-                with open(f"{RAW_DATA_FILE}_sensor{sensor_id}.txt", "a") as raw_data:
-                    raw_data.write(f"{timestamp}, {sensor_id}, {acc_x}, {acc_y}, {acc_z}, "
-                                   f"{gyro_x}, {gyro_y}, {gyro_z}, "
-                                   f"{lacc_x}, {lacc_y}, {lacc_z}, "
-                                   f"{eul_x}, {eul_y}, {eul_z}")
-                    raw_data.write("\n")
+            timestamp, *data = data_queue.get()
+            if count >= 50:
+                print(f"{timestamp}: {data}")
+                count = 1
+            for sample in data:
+                count += 1
+                sample = sample.replace("s", "").replace("e", "")
+                sample = sample.split(",")
+
+                if len(sample) < EUL_Z:
+                    continue
+                else:
+                    sensor_id = int(sample[ID])
+                    acc_x, acc_y, acc_z = float(sample[ACC_X]), float(sample[ACC_Y]), float(
+                        sample[ACC_Z])
+                    gyro_x, gyro_y, gyro_z = float(sample[GYRO_X]), float(sample[GYRO_Y]), float(
+                        sample[GYRO_Z])
+                    lacc_x, lacc_y, lacc_z = float(sample[LACC_X]), float(sample[LACC_Y]), float(
+                        sample[LACC_Z])
+                    eul_x, eul_y, eul_z = float(sample[EUL_X]), float(sample[EUL_Y]), float(
+                        sample[EUL_Z])
+                    # Add the raw data to a file
+                    with open(f"{RAW_DATA_FILE}_sensor{sensor_id}.txt", "a") as raw_data:
+                        raw_data.write(f"{timestamp}, {sensor_id}, {acc_x}, {acc_y}, {acc_z}, "
+                                       f"{gyro_x}, {gyro_y}, {gyro_z}, "
+                                       f"{lacc_x}, {lacc_y}, {lacc_z}, "
+                                       f"{eul_x}, {eul_y}, {eul_z}")
+                        raw_data.write("\n")
         except:
-            print("I'll formed data:", sample)
+            print("Ill formed data:")
             continue
 
 
 # Create worker threads
 def create_workers():
-    # # Thread for processing data
-    # data_thread = threading.Thread(target=process_data)
-    # data_thread.daemon = True
-
     # Threads that maintain connections and obtain data
     for _ in range(NUMBER_OF_THREADS):
         t = threading.Thread(target=work)
@@ -173,6 +198,8 @@ def work():
             accepting_connections()
         if x == 2:
             receive_data()
+        if x == 3:
+            store_data()
 
         job_queue.task_done()
 
@@ -190,10 +217,10 @@ if __name__ == "__main__":
             file.write("timestamp, sensor, acc_x, acc_y, acc_z, gyro_x, gyro_y, gyro_z, "
                        "lacc_x, lacc_y, lacc_z, eul_x, eul_y, eul_z")
             file.write("\n")
-    # create connections
+
+    # create connections and collect data
     create_workers()
     create_jobs()
 
     # ALl data has been processed
     data_queue.join()
-
