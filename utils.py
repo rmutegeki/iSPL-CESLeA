@@ -1,9 +1,9 @@
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from scipy import signal
 from pywt import dwt
+from scipy import signal
 from skimage.transform import downscale_local_mean  # For Augmentation
-import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
 from sklearn.utils.multiclass import unique_labels
 
@@ -31,7 +31,7 @@ def _read_csv(filename):
     return pd.read_csv(filename, delim_whitespace=True, header=None)
 
 
-def load_dataset(data_path, delimiter=",", n_signals=6):
+def load_dataset(data_path, delimiter=",", n_signals=6, n_timesteps=128):
     """
     Loads any data row by row
     data file contains an array of the shape (n_examples, (signals, time_steps))
@@ -263,3 +263,6 @@ def plot_confusion_matrix(y_true, y_pred, classes,
     fig.tight_layout()
     return cm, ax
 
+
+def window(arr, window, step):
+    return None
