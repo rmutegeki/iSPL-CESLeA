@@ -59,7 +59,7 @@ If you wanna make some links, use [blahblah] and look below.
 Here is for making links. if you used [blahblah] above this section, Here you can make them hypertext.
 You need to change the destination of each urls to your own repository.
 -->
-[README for Korean / 한국어 도움말]: https://github.com/Katinor/CESLeA_readme_template/blob/master/README_ko.md
+[README for Korean / 한국어 도움말]: https://github.com/rmutegeki/iSPL-CESLeA/blob/master/README_ko.md
 [license]: https://img.shields.io/github/license/Katinor/CESLeA_readme_template
 [contribution guidelines]: https://github.com/Katinor/CESLeA_readme_template/blob/master/CONTRIBUTING.md
 [code of conduct]: https://github.com/Katinor/CESLeA_readme_template/blob/master/CODE_OF_CONDUCT.md
