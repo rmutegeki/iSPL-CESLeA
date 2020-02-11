@@ -8,7 +8,7 @@
 
 - [About Digital Companion](#about-digital-companion)
 - [About CESLeA](#about-ceslea)
-- [About iSPL's Contribution](#about-iSPL's-Contribution)
+- [About iSPL's Contribution](#about-ispl)
 
 ## About Digital Companion
 
@@ -47,7 +47,7 @@ CESLeA consists of 4 teams and lasts 5 years. We call it as SHE&I with CESLeA.
   - Leading - 4th Year Leading Interaction : Without Conversation - Module Performance Improvement and Advancement
   - Autonomy - 5th Year Spontaneous Interaction : Take care of itself - Real Environment Evaluation and Optimization
 
-## About iSPL's Contribution
+## About iSPL
 
 Combining Localization and Human activity recognition leads to a system having the ability to learn and understand a User's behavior and predict their intended actions. Using the latest in combined local and global location information and human activity data, our module provides the digital companion with this ability.
 
