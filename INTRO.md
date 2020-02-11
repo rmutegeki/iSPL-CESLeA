@@ -8,7 +8,7 @@
 
 - [About Digital Companion](#about-digital-companion)
 - [About CESLeA](#about-ceslea)
-- [About iSPL's Contribution](#about-this)
+- [About iSPL's Contribution](#about-iSPL's-Contribution)
 
 ## About Digital Companion
 
