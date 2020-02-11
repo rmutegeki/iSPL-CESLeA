@@ -69,4 +69,4 @@ You need to change the destination of each urls to your own repository.
 [Ministry of Science and ICT]: https://www.msit.go.kr/
 [IITP]: https://www.iitp.kr/
 [CESLeA]: http://abr.knu.ac.kr/wordpress/ceslea/
-[version 3 of the GNU Lesser General Public License]: https://github.com/Katinor/CESLeA_readme_template/blob/master/LICENSE
+[version 3 of the GNU Lesser General Public License]: https://github.com/rmutegeki/iSPL-CESLeA/blob/master/LICENSE
