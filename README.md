@@ -61,9 +61,9 @@ You need to change the destination of each urls to your own repository.
 -->
 [README for Korean / 한국어 도움말]: https://github.com/rmutegeki/iSPL-CESLeA/blob/master/README_ko.md
 [license]: https://img.shields.io/github/license/Katinor/CESLeA_readme_template
-[contribution guidelines]: https://github.com/Katinor/CESLeA_readme_template/blob/master/CONTRIBUTING.md
-[code of conduct]: https://github.com/Katinor/CESLeA_readme_template/blob/master/CODE_OF_CONDUCT.md
-[Introduction file]: https://github.com/Katinor/CESLeA_readme_template/blob/master/INTRO.md
+[contribution guidelines]: https://github.com/rmutegeki/iSPL-CESLeA/blob/master/CONTRIBUTING.md
+[code of conduct]: https://github.com/rmutegeki/iSPL-CESLeA/blob/master/CODE_OF_CONDUCT.md
+[Introduction file]: https://github.com/rmutegeki/iSPL-CESLeA/blob/master/INTRO.md
 [Autonomous Digital Companion]: http://aicompanion.or.kr/
 [KETI]: https://www.keti.re.kr/
 [Ministry of Science and ICT]: https://www.msit.go.kr/
