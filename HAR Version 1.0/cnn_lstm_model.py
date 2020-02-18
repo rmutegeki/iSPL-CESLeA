@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 """
 Train a CNN+LSTM model to recognize Human activities
-Script to
+Script that defines a CNN_LSTM model, and also employs transfer learning
+Built with Keras with a TensorFlow backend
+Outputs a model capable of recognizing 3 Human Activities
 Created on Mon July 29 09:05:37 2019
 @author: Mutegeki Ronald - murogive@gmail.com - iSPL / KNU
 """
@@ -108,7 +110,7 @@ loaded_model.pop()
 # print("New model - Transferred but not fine-tuned")
 # new_model.summary()
 # # Transferred but not fine-tuned
-# new_model.save("checkpoint/cnn_lstm/transferred.h5")
+# new_model.save("checkpoint/target/transferred.h5")
 
 early_stopping_monitor = EarlyStopping(patience=5)
 
