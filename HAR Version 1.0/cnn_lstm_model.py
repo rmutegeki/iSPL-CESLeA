@@ -5,27 +5,13 @@ Created on Mon July 29 09:05:37 2019
 @author: Mutegeki Ronald - murogive@gmail.com - iSPL / KNU
 """
 
-# Importing tensorflow
-import tensorflow as tf
-
-# Import Keras
-from keras import backend as K
-from keras.callbacks import EarlyStopping, ModelCheckpoint
-from keras.layers import LSTM, TimeDistributed, Conv1D, MaxPooling1D, Flatten
-from keras.layers.core import Dense, Dropout
-from keras.models import Sequential
-from keras.models import load_model
-
-# Import support libraries
-from sklearn import metrics
-from sklearn.model_selection import train_test_split
-import datetime
-import os
-from my_utils import *
-import numpy as np
+from utils import *
 
 
-# These are the class labels for the Target (iSPL dataset)
+"""
+Global Variables used in this script
+"""
+# These are the class labels for the target dataset and realtime model (iSPL dataset)
 # It is a 3 class classification
 ACTIVITIES = {
     0: "STANDING",
@@ -33,23 +19,16 @@ ACTIVITIES = {
     2: "WALKING",
 }
 
-# Some utility variables
+# Used variables
 RANDOM_SEED = 7
 np.random.seed(42)
 tf.set_random_seed(42)
 DATASET = "dataset/iSPL/"
 
-START = datetime.datetime.now()
+START = datetime.datetime.now()  # Start Time for this script
 
-
-# Utility function to print the confusion matrix
-def confusion_matrix(Y_true, Y_pred):
-    Y_true = pd.Series([ACTIVITIES[y] for y in np.argmax(Y_true, axis=1)])
-    Y_pred = pd.Series([ACTIVITIES[y] for y in np.argmax(Y_pred, axis=1)])
-
-    return pd.crosstab(Y_true, Y_pred, rownames=['True'], colnames=['Pred'])
-
-
+# Loading the train and test target data from the dataset
+# Functions defined in utils.py
 dataset = load_dataset(f'{DATASET}data.txt', ",", 6)
 labels = load_labels(f'{DATASET}labels.txt')
 
@@ -57,7 +36,7 @@ one_hot_labels = np.asarray(pd.get_dummies(labels.reshape(len(labels))), dtype=n
 X_train, X_test, y_train, y_test = train_test_split(dataset, one_hot_labels,
                                                     test_size=0.2, random_state=RANDOM_SEED)
 
-# Configuring a session
+# Configs for the session
 session_conf = tf.ConfigProto(
     intra_op_parallelism_threads=2,
     inter_op_parallelism_threads=2
@@ -66,13 +45,6 @@ session_conf = tf.ConfigProto(
 sess = tf.Session(graph=tf.get_default_graph(), config=session_conf)
 K.set_session(sess)
 
-
-# Utility function to count the number of classes
-def _count_classes(y):
-    return len(set([tuple(category) for category in y]))
-
-
-# Loading the train and test source data
 timesteps = X_train[0].shape[1]
 input_dim = X_train.shape[2]
 n_classes = len(ACTIVITIES)  # Number of classes (6)
@@ -176,8 +148,8 @@ history = model.fit(trainX,
 END = datetime.datetime.now()
 
 # Source Model Evaluation
-# Confusion Matrix
-cm = confusion_matrix(y_test, model.predict(testX))
+# Confusion Matrix from common
+cm = confusion_m(y_test, model.predict(testX))
 print(cm)
 
 loss, acc = model.evaluate(testX, y_test)
