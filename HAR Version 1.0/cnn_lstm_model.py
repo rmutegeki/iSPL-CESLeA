@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """
+Version 1.0
 Train a CNN+LSTM model to recognize Human activities
 Script that defines a CNN_LSTM model, and also employs transfer learning
 Built with Keras with a TensorFlow backend

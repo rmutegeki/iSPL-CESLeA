@@ -29,7 +29,7 @@ session_conf = tf.ConfigProto(
 sess = tf.compat.v1.Session(graph=tf.compat.v1.get_default_graph(), config=session_conf)
 K.set_session(sess)
 # Trained model location
-checkpoint = "checkpoint/target/model2.h5"
+checkpoint = "checkpoint/target/model.h5"
 # checkpoint = "checkpoint/cnn_lstm/model.ckpt"
 model = load_model(checkpoint)
 """
