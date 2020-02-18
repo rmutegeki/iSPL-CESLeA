@@ -1,36 +1,49 @@
 # -*- coding: utf-8 -*-
 """
-Train a CNN+LSTM model to recognize Human activities
+Contains the imports and functions used by a variety of scripts
 Created on Mon July 29 09:05:37 2019
 @author: Mutegeki Ronald - murogive@gmail.com - iSPL / KNU
 """
 
+# Importing tensorflow
+import tensorflow as tf
+
+# Import Keras
+from keras import backend as K
+from keras.callbacks import EarlyStopping, ModelCheckpoint
+from keras.layers import LSTM, TimeDistributed, Conv1D, MaxPooling1D, Flatten
+from keras.layers.core import Dense, Dropout
+from keras.models import Sequential
+from keras.models import load_model
+
+# Import support libraries
+from sklearn import metrics
+from sklearn.model_selection import train_test_split
+import datetime
+import os
 import matplotlib.pyplot as plt
+# To create nicer plots
+import seaborn as sns
 import numpy as np
+# To measure time
+import time
 import pandas as pd
-from pywt import dwt
-from scipy import signal
+from pywt import dwt  # For signal processing
+from scipy import signal  # For signal processing
 from skimage.transform import downscale_local_mean  # For Augmentation
 from sklearn.metrics import confusion_matrix
 from sklearn.utils.multiclass import unique_labels
 
-# Raw data signals
-# Signals are from Accelerometer and Gyroscope
-# The signals are in x,y,z directions
-# Sensor signals are filtered to have only body acceleration
-# excluding the acceleration due to gravity
-# Triaxial acceleration from the accelerometer is total acceleration
-SIGNALS = [
-    "body_gyro_x",
-    "body_gyro_y",
-    "body_gyro_z",
-    "total_acc_x",
-    "total_acc_y",
-    "total_acc_z",
-    "body_acc_x",
-    "body_acc_y",
-    "body_acc_z",
-]
+# Common Variables used
+# ...
+
+
+# Utility function to print the confusion matrix
+def confusion_m(Y_true, Y_pred, activities):
+    Y_true = pd.Series([activities[y] for y in np.argmax(Y_true, axis=1)])
+    Y_pred = pd.Series([activities[y] for y in np.argmax(Y_pred, axis=1)])
+
+    return pd.crosstab(Y_true, Y_pred, rownames=['True'], colnames=['Pred'])
 
 
 # Utility function to read the data from csv file
@@ -40,12 +53,13 @@ def _read_csv(filename):
 
 def load_dataset(data_path, delimiter=",", n_signals=6, n_timesteps=128):
     """
-    Loads any data row by row
-    data file contains an array of the shape (n_examples, (signals, time_steps))
+    Loads any data row by row and the data file contains an array 
+    of the shape (n_examples, (signals, time_steps))
     with flattened features that are organized by signal type
     :param data_path: Path to dataset
     :param delimiter: Defaults to "," that separates the strings of the data.
     :param n_signals: The number of signals acc x, y, z and gyro x, y, z
+    :param n_timesteps: Based on the sampling rate, how many samples for each window
     :return data_array: a dataset (n_examples, time_steps, signals)
     """
     with open(data_path) as file:
@@ -55,11 +69,11 @@ def load_dataset(data_path, delimiter=",", n_signals=6, n_timesteps=128):
     return np.transpose(data_array.reshape((len(data_array), n_signals, -1)), (0, 2, 1))
 
 
-def load_signals(folder, subset):
+def load_signals(folder, subset, signals):
     signals_data = []
 
-    for signal in SIGNALS:
-        filename = f'{folder}/{signal}_{subset}.txt'
+    for signal in signals:
+        filename = f'{folder}/{subset}/Inertial Signals/{signal}_{subset}.txt'
         signals_data.append(
             _read_csv(filename).values
         )
@@ -70,11 +84,31 @@ def load_signals(folder, subset):
     return np.transpose(signals_data, (1, 2, 0))
 
 
+# Label loader for normal dataset
 def load_labels(label_path, delimiter=","):
     with open(label_path, 'rb') as file:
         # Read labels from disk, dealing with text file's syntax
         y_ = np.loadtxt(label_path, delimiter=delimiter)
     return y_
+
+
+# Alternative label loader for UCI dataset
+def load_y(label_path, subset):
+    """
+    We are trying to predict  an integer, from 1 to 6,
+    that represents a human activity. We return a binary representation of
+    every sample objective as a 6 bits vector using One Hot Encoding
+    (https://pandas.pydata.org/pandas-docs/stable/generated/pandas.get_dummies.html)
+    """
+    filename = f'{label_path}/{subset}/y_{subset}.txt'
+    y = _read_csv(filename)[0]
+
+    return pd.get_dummies(y).as_matrix()
+
+
+# Utility function to count the number of classes
+def _count_classes(y):
+    return len(set([tuple(category) for category in y]))
 
 
 # Process Raw data and return corresponding fourier transformed data input(values) is the same as XFfg/a or YFfg
@@ -158,7 +192,7 @@ def normalize_dataset(dataset):
     """
     Normalizes the given dataset for every example
     :param dataset:
-    :return:
+    :return: a normalized dataset
     """
     mu = np.mean(dataset, axis=0)
     sigma = np.std(dataset, axis=0)
@@ -216,10 +250,21 @@ def augment(x, y):
     return np.array(augmented_x), np.array(augmented_y)
 
 
+# Plotting training graphs
+def plot_graphs(history, string):
+    plt.plot(history.history[string])
+    plt.plot(history.history['val_' + string])
+    plt.xlabel("Epochs")
+    plt.ylabel(string)
+    plt.legend([string, 'val_' + string])
+    plt.show()
+
+
 def plot_confusion_matrix(y_true, y_pred, classes,
                           normalize=False,
                           title=None,
-                          cmap=plt.cm.Blues):
+                          cmap=plt.cm.Blues,
+                          activities=None):
     """
     This function prints and plots the confusion matrix.
     Normalization can be applied by setting `normalize=True`.
@@ -231,10 +276,10 @@ def plot_confusion_matrix(y_true, y_pred, classes,
             title = 'Confusion matrix, without normalization'
 
     # Compute confusion matrix
-    cm = confusion_matrix(y_true, y_pred)
+    cm = confusion_m(y_true, y_pred, activities)
     # Only use the labels that appear in the data
     classes = np.asarray(classes)
-    classes = classes[np.asarray(unique_labels(y_true, y_pred), dtype=int)-1]
+    classes = classes[np.asarray(unique_labels(y_true, y_pred), dtype=int) - 1]
     if normalize:
         cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
         print("Normalized confusion matrix")
@@ -271,5 +316,21 @@ def plot_confusion_matrix(y_true, y_pred, classes,
     return cm, ax
 
 
+# Used in windowing the data given data that is not windowed. Refer to Thu's Approach on that
 def window(arr, window, step):
     return None
+
+
+# Creates a generator that continuously reads data from a file
+def follow(thefile):
+    thefile.seek(0, 0)
+    while True:
+        line = thefile.readline()
+        if not line:
+            time.sleep(0.1)
+            continue
+        yield line
+
+
+if __name__ == "__main__":
+    print("This is a utility function :)")
