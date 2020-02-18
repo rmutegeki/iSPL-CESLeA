@@ -5,10 +5,6 @@ Created on Mon July 29 09:05:37 2019
 @author: Mutegeki Ronald - murogive@gmail.com - iSPL / KNU
 """
 
-# Importing Libraries
-import datetime
-import os
-
 # Importing tensorflow
 import tensorflow as tf
 
@@ -23,10 +19,13 @@ from keras.models import load_model
 # Import support libraries
 from sklearn import metrics
 from sklearn.model_selection import train_test_split
+import datetime
+import os
+from my_utils import *
+import numpy as np
 
-from utils import *
 
-# These are the class labels for the source dataset
+# These are the class labels for the Target (iSPL dataset)
 # It is a 3 class classification
 ACTIVITIES = {
     0: "STANDING",
