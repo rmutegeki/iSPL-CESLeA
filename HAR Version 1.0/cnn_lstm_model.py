@@ -1,9 +1,17 @@
+# -*- coding: utf-8 -*-
+"""
+Train a CNN+LSTM model to recognize Human activities
+Created on Mon July 29 09:05:37 2019
+@author: Mutegeki Ronald - murogive@gmail.com - iSPL / KNU
+"""
+
 # Importing Libraries
 import datetime
 import os
 
 # Importing tensorflow
 import tensorflow as tf
+
 # Import Keras
 from keras import backend as K
 from keras.callbacks import EarlyStopping, ModelCheckpoint
@@ -11,7 +19,8 @@ from keras.layers import LSTM, TimeDistributed, Conv1D, MaxPooling1D, Flatten
 from keras.layers.core import Dense, Dropout
 from keras.models import Sequential
 from keras.models import load_model
-# from sklearn.metrics import confusion_matrix
+
+# Import support libraries
 from sklearn import metrics
 from sklearn.model_selection import train_test_split
 
@@ -23,12 +32,6 @@ ACTIVITIES = {
     0: "STANDING",
     1: "SITTING",
     2: "WALKING",
-    # 3: "STAND-TO-WALK",
-    # 4: "STAND-TO-SIT",
-    # 5: "SIT-TO-STAND",
-    # 6: "WALK-TO-STAND",
-    # 7: "SIT-TO-WALK",
-    # 8: "WALK-TO-SIT",
 }
 
 # Some utility variables
