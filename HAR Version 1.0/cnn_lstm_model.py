@@ -30,7 +30,7 @@ DATASET = "dataset/iSPL/"
 
 START = datetime.datetime.now()  # Start Time for this script
 
-# Loading the target dataset
+# Loading the source train and test data
 # Functions below are defined in utils.py
 dataset = load_dataset(data_path=f'{DATASET}data.txt', delimiter=",", n_signals=6)
 labels = load_labels(f'{DATASET}labels.txt')
@@ -141,8 +141,8 @@ history = model.fit(trainX,
 
 END = datetime.datetime.now()
 
+# Target Model Evaluation
 if __name__ == "__main__":
-    # Target Model Evaluation
     # Confusion Matrix from Utils
     cm = confusion_m(y_test, model.predict(testX), ACTIVITIES)
     print(f"Confusion Matrix\n{cm}")
