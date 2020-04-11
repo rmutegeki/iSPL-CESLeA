@@ -51,6 +51,7 @@ DONT WRITE TOO MUCH. README is manual not historical textbook.
 If you wanna make some links, use [blahblah] and look below.
 -->
 ## Citation 
+• A. Poulose and D. S. Han, "Hybrid Indoor Localization Using IMU sensor and Smartphone Camera," Sensors, vol. 19, pp. 5084, 2019.
 ## LICENSE
 
 [version 3 of the GNU Lesser General Public License]
