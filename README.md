@@ -52,11 +52,9 @@ If you wanna make some links, use [blahblah] and look below.
 -->
 ## Citation 
 - A. Poulose and D. S. Han, "Hybrid Indoor Localization Using IMU sensor and Smartphone Camera," Sensors, vol. 19, pp. 5084, 2019.
-- A. Poulose, J. Kim, and D. S. Han, “A Sensor Fusion Framework for Indoor Localization Using Smartphone Sensors and Wi-Fi RSSI     
-  Measurements," Applied Sciences, vol. 9, pp. 4379, 2019.
-- A. Poulose, B. Senouci and D. S. Han, "Performance Analysis of Sensor Fusion Techniques For Heading Estimation Using Smartphone   
-  Sensors," IEEE Sensors Journal, vol. 19, no. 24, pp. 12369-12380, 2019.
-- A. Poulose, O. S. Eyobu, and D. S. Han, “An Indoor Position-Estimation Algorithm Using Smartphone IMU Sensor Data," IEEE Access, vol.   7, pp. 11165-11177, 2019.
+- A. Poulose, J. Kim, and D. S. Han, “A Sensor Fusion Framework for Indoor Localization Using Smartphone Sensors and Wi-Fi RSSI    Measurements," Applied Sciences, vol. 9, pp. 4379, 2019.
+- A. Poulose, B. Senouci and D. S. Han, "Performance Analysis of Sensor Fusion Techniques For Heading Estimation Using Smartphone Sensors," IEEE Sensors Journal, vol. 19, no. 24, pp. 12369-12380, 2019.
+- A. Poulose, O. S. Eyobu, and D. S. Han, “An Indoor Position-Estimation Algorithm Using Smartphone IMU Sensor Data," IEEE Access, vol. 7, pp. 11165-11177, 2019.
   
 ## LICENSE
 
