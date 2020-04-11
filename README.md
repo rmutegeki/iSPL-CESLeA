@@ -50,7 +50,7 @@ Write short introduction of your module.
 DONT WRITE TOO MUCH. README is manual not historical textbook.
 If you wanna make some links, use [blahblah] and look below.
 -->
-
+## Citation 
 ## LICENSE
 
 [version 3 of the GNU Lesser General Public License]
