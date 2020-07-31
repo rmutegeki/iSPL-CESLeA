@@ -1,7 +1,7 @@
 """
 ****************************** WINDOWING - SMARTPHONE ******************************
 
-- OFFLINE used only
+- For REALTIME
 - For sensor data collected from smartphone
 - Split data into fixed length windows with overlap
 - Raw data format: [time, device_id, Acc_xyz, Gyr_xyz, LinearAcc_xyz]
