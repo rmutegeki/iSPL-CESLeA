@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="baf546a4-4fcc-48b9-837d-36a692c919f9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../HAR Version 1.2.0/collect.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../HAR Version 1.1/data/activity_data1_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../HAR Version 1.1/data/activity_data1_log.txt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="C:\Users\Ronnie\OneDrive\Kyungpook National University\Wilco\iSPL-CESLeA\iSPL-CESLeA\HAR Version 1.0\.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1Xz6QgPvvAfFoNDhaukVxltsSIQ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$USER_HOME$/envGPU" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Ronnie\OneDrive\Kyungpook National University\Wilco\iSPL-CESLeA\iSPL-CESLeA\HAR Version 1.0" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ronnie\OneDrive\Kyungpook National University\Wilco\iSPL-CESLeA\iSPL-CESLeA\HAR Version 1.0" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.transfer_model">
+    <configuration name="cnn_lstm_model" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="HAR Version 1.0" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cnn_lstm_model.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="transfer_model" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="HAR Version 1.0" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/transfer_model.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.cnn_lstm_model" />
+      <item itemvalue="Python.transfer_model" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.transfer_model" />
+        <item itemvalue="Python.cnn_lstm_model" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="baf546a4-4fcc-48b9-837d-36a692c919f9" name="Default Changelist" comment="" />
+      <created>1582036560465</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1582036560465</updated>
+      <workItem from="1582036562203" duration="17171000" />
+      <workItem from="1583461937837" duration="3332000" />
+      <workItem from="1583828560003" duration="2919000" />
+      <workItem from="1584682885258" duration="1196000" />
+      <workItem from="1585872043232" duration="1945000" />
+    </task>
+    <task id="LOCAL-00001" summary="Editing code to be original">
+      <created>1582036755222</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1582036755222</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Completed moving shared code to the utils file">
+      <created>1582049225849</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1582049225849</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Updating description to the title of the script">
+      <created>1582050916748</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1582050916748</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Updated source model script with shared code moving to the utils file">
+      <created>1582053195066</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1582053195066</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added the display file to the repository">
+      <created>1582054184850</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1582054184850</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Only used to run multiple instances of the run_model.py file">
+      <created>1582054237199</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1582054237199</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Made adjustments to it's internal workings">
+      <created>1582054285327</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1582054285327</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Made some adjustments">
+      <created>1582054320141</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1582054320141</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Made some adjustments">
+      <created>1582054341647</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1582054341647</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Made some adjustments">
+      <created>1582054353349</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1582054353349</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Added some images and a number of adjustments to the inner workings of some scripts">
+      <created>1582054456724</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1582054456724</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Removed some old model">
+      <created>1582055210129</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1582055210129</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Removed some unnecessary images">
+      <created>1582055411636</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1582055411636</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Made some code adjustments">
+      <created>1582056875410</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1582056875410</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Editing code to be original" />
+    <MESSAGE value="Completed moving shared code to the utils file" />
+    <MESSAGE value="Updating description to the title of the script" />
+    <MESSAGE value="Updated source model script with shared code moving to the utils file" />
+    <MESSAGE value="Added the display file to the repository" />
+    <MESSAGE value="Only used to run multiple instances of the run_model.py file" />
+    <MESSAGE value="Made adjustments to it's internal workings" />
+    <MESSAGE value="Made some adjustments" />
+    <MESSAGE value="Added some images and a number of adjustments to the inner workings of some scripts" />
+    <MESSAGE value="Removed some old model" />
+    <MESSAGE value="Removed some unnecessary images" />
+    <MESSAGE value="Made some code adjustments" />
+    <option name="LAST_COMMIT_MESSAGE" value="Made some code adjustments" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="503" y="54" key="#transfer_model" timestamp="1585872280353">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="503" y="54" key="#transfer_model/0.0.1536.824@0.0.1536.824" timestamp="1585872280353" />
+    <state x="548" y="170" key="FileChooserDialogImpl" timestamp="1585872690060">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="548" y="170" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1585872690060" />
+    <state x="279" y="58" key="SettingsEditor" timestamp="1585872746391">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="279" y="58" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1585872746391" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/HAR_Version_1_0$cnn_lstm_model.coverage" NAME="cnn_lstm_model Coverage Results" MODIFIED="1582048994976" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/HAR_Version_1_0$transfer_model.coverage" NAME="transfer_model Coverage Results" MODIFIED="1582052608800" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>

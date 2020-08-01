@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4724dc23-4891-4b5e-a904-774c73b7637a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Arduino/mosquitto_v2.1/mosquitto_v2.1.ino" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ideas/Thu/multi_demo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ideas/pandas-presentation-tips.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ideas/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/collect.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_processing.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/draft_GUI.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/multi-sensor-receiver.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/status/1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/status/2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/status/3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../HAR Version 1.1/data/activity_data1_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../HAR Version 1.1/data/activity_data1_log.txt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="Jung" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="JupyterTrust" id="8e08608c-323b-42ca-b68b-1958976d6ffa" />
+  <component name="ProjectId" id="1ZpVTF0PyHqkxIhkFBM1MSqvdDJ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ronnie\OneDrive\Kyungpook National University\Wilco\iSPL-CESLeA\iSPL-CESLeA\HAR Version 1.2.0" />
+      <recent name="C:\Users\Ronnie\OneDrive\Kyungpook National University\Wilco\iSPL-CESLeA\iSPL-CESLeA\HAR Version 1.2.0\Arduino" />
+      <recent name="C:\Users\Ronnie\OneDrive\Kyungpook National University\Wilco\iSPL-CESLeA\iSPL-CESLeA\HAR Version 1.2.0\Ideas\Thu" />
+      <recent name="C:\Users\Ronnie\OneDrive\Kyungpook National University\Wilco\iSPL-CESLeA\iSPL-CESLeA\HAR Version 1.2.0\Ideas" />
+      <recent name="C:\Users\Ronnie\OneDrive\Kyungpook National University\Wilco\iSPL-CESLeA\iSPL-CESLeA\HAR Version 1.2.0\status" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Ronnie\OneDrive\Kyungpook National University\Wilco\iSPL-CESLeA\iSPL-CESLeA\HAR Version 1.2.0\Archive" />
+      <recent name="C:\Users\Ronnie\OneDrive\Kyungpook National University\Wilco\iSPL-CESLeA\iSPL-CESLeA\HAR Version 1.2.0\Arduino" />
+      <recent name="C:\Users\Ronnie\OneDrive\Kyungpook National University\Wilco\iSPL-CESLeA\iSPL-CESLeA\HAR Version 1.2.0" />
+      <recent name="C:\Users\Ronnie\OneDrive\Kyungpook National University\Wilco\iSPL-CESLeA\iSPL-CESLeA\HAR Version 1.2.0\mosquitto_v2" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.multi-sensor-receiver">
+    <configuration name="client1 (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="HAR Version 1.2.0" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Archive" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Archive/client1.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="client1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="HAR Version 1.2.0" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\Ronnie\OneDrive\Kyungpook National University\Wilco\iSPL-CESLeA\iSPL-CESLeA\HAR Version 1.2.0\Archive\client1.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="client2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="HAR Version 1.2.0" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\Ronnie\OneDrive\Kyungpook National University\Wilco\iSPL-CESLeA\iSPL-CESLeA\HAR Version 1.2.0\Archive\client2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="data_processing" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="HAR Version 1.2.0" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data_processing.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="draft_GUI" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="HAR Version 1.2.0" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/draft_GUI.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="multi-sensor-receiver" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="HAR Version 1.2.0" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/multi-sensor-receiver.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.client1" />
+      <item itemvalue="Python.client2" />
+      <item itemvalue="Python.multi-sensor-receiver" />
+      <item itemvalue="Python.client1 (1)" />
+      <item itemvalue="Python.data_processing" />
+      <item itemvalue="Python.draft_GUI" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.multi-sensor-receiver" />
+        <item itemvalue="Python.data_processing" />
+        <item itemvalue="Python.draft_GUI" />
+        <item itemvalue="Python.client1 (1)" />
+        <item itemvalue="Python.client2" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4724dc23-4891-4b5e-a904-774c73b7637a" name="Default Changelist" comment="" />
+      <created>1585536027762</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1585536027762</updated>
+      <workItem from="1585536029687" duration="5433000" />
+      <workItem from="1585718682506" duration="10347000" />
+      <workItem from="1585786659791" duration="16212000" />
+      <workItem from="1585839804614" duration="9884000" />
+      <workItem from="1585895419727" duration="4539000" />
+      <workItem from="1585963083160" duration="941000" />
+      <workItem from="1586133553965" duration="10479000" />
+      <workItem from="1586217655317" duration="2529000" />
+      <workItem from="1587201598720" duration="3662000" />
+      <workItem from="1587378932723" duration="1507000" />
+      <workItem from="1587426218331" duration="74000" />
+      <workItem from="1587426485694" duration="622000" />
+      <workItem from="1587427139917" duration="604000" />
+      <workItem from="1587962495240" duration="107000" />
+      <workItem from="1587962642393" duration="1164000" />
+      <workItem from="1587964799092" duration="1199000" />
+      <workItem from="1588148458599" duration="627000" />
+      <workItem from="1588149130782" duration="2337000" />
+      <workItem from="1588160825523" duration="1103000" />
+      <workItem from="1588243502171" duration="2290000" />
+      <workItem from="1588294884900" duration="3288000" />
+      <workItem from="1588653481511" duration="6194000" />
+      <workItem from="1588667513139" duration="1876000" />
+      <workItem from="1588741643093" duration="1869000" />
+      <workItem from="1588854160741" duration="3039000" />
+      <workItem from="1588905787044" duration="4342000" />
+      <workItem from="1589004160653" duration="2397000" />
+      <workItem from="1589196128798" duration="2289000" />
+      <workItem from="1589241593488" duration="1005000" />
+      <workItem from="1589359189903" duration="599000" />
+      <workItem from="1589526677255" duration="4947000" />
+      <workItem from="1590555686216" duration="576000" />
+      <workItem from="1590735226775" duration="4147000" />
+      <workItem from="1591237064193" duration="2343000" />
+      <workItem from="1591316302592" duration="2558000" />
+      <workItem from="1591402107890" duration="3009000" />
+      <workItem from="1591773389920" duration="3172000" />
+      <workItem from="1591943759940" duration="926000" />
+      <workItem from="1592181503986" duration="4497000" />
+      <workItem from="1592878592936" duration="1949000" />
+      <workItem from="1592892893947" duration="1741000" />
+      <workItem from="1592899917725" duration="1643000" />
+      <workItem from="1592958370011" duration="598000" />
+      <workItem from="1593425776984" duration="2767000" />
+      <workItem from="1593695315158" duration="1834000" />
+      <workItem from="1594735596690" duration="2647000" />
+      <workItem from="1594779915207" duration="902000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1512" y="132" key="#Plugins" timestamp="1587964225041">
+      <screen x="1280" y="0" width="1280" height="984" />
+    </state>
+    <state x="1512" y="132" key="#Plugins/0.0.1280.984/1280.0.1280.984@1280.0.1280.984" timestamp="1587964225041" />
+    <state x="1466" y="84" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589538358157">
+      <screen x="1280" y="0" width="1280" height="984" />
+    </state>
+    <state x="186" y="84" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.984/1280.0.1280.984@0.0.1280.984" timestamp="1588244234142" />
+    <state x="1466" y="84" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.984/1280.0.1280.984@1280.0.1280.984" timestamp="1589538358157" />
+    <state x="549" y="222" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1590736990025">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="549" y="222" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1590736990025" />
+    <state x="1729" y="152" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1592892750470">
+      <screen x="1280" y="0" width="1536" height="832" />
+    </state>
+    <state x="449" y="151" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.824@0.0.1536.824" timestamp="1587426240863" />
+    <state x="1729" y="152" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/1280.0.1536.832/0.0.1280.984@1280.0.1536.832" timestamp="1592892750470" />
+    <state width="1493" height="307" key="GridCell.Tab.0.bottom" timestamp="1591359969642">
+      <screen x="1280" y="0" width="1536" height="832" />
+    </state>
+    <state width="1237" height="483" key="GridCell.Tab.0.bottom/0.0.1280.984/1280.0.1280.984@0.0.1280.984" timestamp="1588663410303" />
+    <state width="1237" height="408" key="GridCell.Tab.0.bottom/0.0.1280.984/1280.0.1280.984@1280.0.1280.984" timestamp="1589538341245" />
+    <state width="1493" height="282" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1588741687815" />
+    <state width="1493" height="307" key="GridCell.Tab.0.bottom/1280.0.1536.832/0.0.1280.984@1280.0.1536.832" timestamp="1591359969642" />
+    <state width="1493" height="307" key="GridCell.Tab.0.center" timestamp="1591359969642">
+      <screen x="1280" y="0" width="1536" height="832" />
+    </state>
+    <state width="1237" height="483" key="GridCell.Tab.0.center/0.0.1280.984/1280.0.1280.984@0.0.1280.984" timestamp="1588663410303" />
+    <state width="1237" height="408" key="GridCell.Tab.0.center/0.0.1280.984/1280.0.1280.984@1280.0.1280.984" timestamp="1589538341245" />
+    <state width="1493" height="282" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1588741687814" />
+    <state width="1493" height="307" key="GridCell.Tab.0.center/1280.0.1536.832/0.0.1280.984@1280.0.1536.832" timestamp="1591359969642" />
+    <state width="1493" height="307" key="GridCell.Tab.0.left" timestamp="1591359969642">
+      <screen x="1280" y="0" width="1536" height="832" />
+    </state>
+    <state width="1237" height="483" key="GridCell.Tab.0.left/0.0.1280.984/1280.0.1280.984@0.0.1280.984" timestamp="1588663410303" />
+    <state width="1237" height="408" key="GridCell.Tab.0.left/0.0.1280.984/1280.0.1280.984@1280.0.1280.984" timestamp="1589538341244" />
+    <state width="1493" height="282" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1588741687814" />
+    <state width="1493" height="307" key="GridCell.Tab.0.left/1280.0.1536.832/0.0.1280.984@1280.0.1536.832" timestamp="1591359969642" />
+    <state width="1493" height="307" key="GridCell.Tab.0.right" timestamp="1591359969642">
+      <screen x="1280" y="0" width="1536" height="832" />
+    </state>
+    <state width="1237" height="483" key="GridCell.Tab.0.right/0.0.1280.984/1280.0.1280.984@0.0.1280.984" timestamp="1588663410303" />
+    <state width="1237" height="408" key="GridCell.Tab.0.right/0.0.1280.984/1280.0.1280.984@1280.0.1280.984" timestamp="1589538341245" />
+    <state width="1493" height="282" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1588741687815" />
+    <state width="1493" height="307" key="GridCell.Tab.0.right/1280.0.1536.832/0.0.1280.984@1280.0.1536.832" timestamp="1591359969642" />
+    <state x="5" y="53" key="SettingsEditor" timestamp="1594735874347">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="199" y="89" key="SettingsEditor/0.0.1280.984/1280.0.1280.984@1280.0.1280.984" timestamp="1588161905095" />
+    <state x="5" y="44" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1590736583387" />
+    <state x="5" y="53" key="SettingsEditor/0.0.1680.1010/1680.0.1280.984@0.0.1680.1010" timestamp="1594735874347" />
+    <state x="1285" y="44" key="SettingsEditor/1280.0.1536.832/0.0.1280.984@1280.0.1536.832" timestamp="1591338791536" />
+    <state x="477" y="240" key="com.intellij.ide.util.TipDialog" timestamp="1587426220871">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="477" y="240" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1587426220870" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/HAR_Version_1_2_0$client1__1_.coverage" NAME="client1 (1) Coverage Results" MODIFIED="1588741687774" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Archive" />
+    <SUITE FILE_PATH="coverage/HAR_Version_1_2_0$data_processing.coverage" NAME="data_processing Coverage Results" MODIFIED="1589538341210" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/HAR_Version_1_2_0$multi_sensor_receiver.coverage" NAME="multi-sensor-receiver Coverage Results" MODIFIED="1588666205121" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/HAR_Version_1_2_0$collect.coverage" NAME="collect Coverage Results" MODIFIED="1585621015657" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/HAR_Version_1_2_0$client2.coverage" NAME="client2 Coverage Results" MODIFIED="1585725107712" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/HAR_Version_1_2_0$client3.coverage" NAME="client3 Coverage Results" MODIFIED="1585725145660" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/HAR_Version_1_2_0$client1.coverage" NAME="client1 Coverage Results" MODIFIED="1585724982722" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/HAR_Version_1_2_0$draft_GUI.coverage" NAME="draft_GUI Coverage Results" MODIFIED="1591339351013" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/HAR_Version_1_2_0$test.coverage" NAME="test Coverage Results" MODIFIED="1588244219916" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Ideas" />
+  </component>
+</project>
