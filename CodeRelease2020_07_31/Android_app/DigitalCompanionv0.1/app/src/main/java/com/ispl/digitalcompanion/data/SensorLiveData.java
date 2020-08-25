@@ -74,13 +74,13 @@ public class SensorLiveData extends LiveData<SensorData> implements
     protected void onActive() {
         super.onActive();
         sensorManager.registerListener(this, accelerometerSensor,
-                SensorManager.SENSOR_DELAY_FASTEST);
+                SensorManager.SENSOR_DELAY_GAME);
         sensorManager.registerListener(this, gyroscopeSensor,
-                SensorManager.SENSOR_DELAY_FASTEST);
+                SensorManager.SENSOR_DELAY_GAME);
         sensorManager.registerListener(this, magneticFieldSensor,
-                SensorManager.SENSOR_DELAY_FASTEST);
+                SensorManager.SENSOR_DELAY_GAME);
         sensorManager.registerListener(this, linearAccelerationSensor,
-                SensorManager.SENSOR_DELAY_FASTEST);
+                SensorManager.SENSOR_DELAY_GAME);
         timer.start();
     }
 

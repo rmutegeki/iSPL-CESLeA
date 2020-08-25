@@ -14,6 +14,7 @@ import android.os.Build;
 import android.util.Log;
 
 import androidx.lifecycle.LifecycleService;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.hivemq.client.mqtt.datatypes.MqttQos;
 import com.hivemq.client.mqtt.mqtt3.Mqtt3AsyncClient;
@@ -22,7 +23,6 @@ import com.ispl.digitalcompanion.R;
 import com.ispl.digitalcompanion.UDPThread;
 import com.ispl.digitalcompanion.data.SensorData;
 import com.ispl.digitalcompanion.data.SensorLiveData;
-import com.ispl.digitalcompanion.data.db.SensorDataDao;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -32,6 +32,7 @@ import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.Executor;
@@ -61,8 +62,6 @@ public class MqttService extends LifecycleService {
     //Mqtt Client Config
     // Generate a random client id
     String clientId = UUID.randomUUID().toString();
-    private SensorDataDao sensorDataDao;
-    private Executor diskExecutor;
     private Executor mqttExecutor;
     private Executor udpExecutor;
     private Executor dataExecutor;
@@ -74,6 +73,13 @@ public class MqttService extends LifecycleService {
     private boolean firstRound = true;
     private int windowEnd = bufferSize;
 
+    public static final String
+            ACTION_LOCATION_BROADCAST = MqttService.class.getName() + "ActivityLocationBroadcast",
+            EXTRA_ACTIVITY = "extra_activity",
+            EXTRA_LOCATION_X = "extra_location_x",
+            EXTRA_LOCATION_Y = "extra_location_y";
+
+
     public MqttService() {
 
     }
@@ -82,7 +88,10 @@ public class MqttService extends LifecycleService {
     public void onCreate() {
         super.onCreate();
         // Initializing our data array list
-        sensorDataBuffer = Collections.synchronizedList(new ArrayList<>());
+        sensorDataBuffer = Collections.synchronizedList(new LinkedList<String>());
+
+        //Let's provide the default activity and location
+        sendBroadcastMessage("IDLE", "0.0", "0.0");
 
         // Check if the IP and other parameters are set defaults
         if (mIP_Address.isEmpty() || mIP_Address == null) {
@@ -110,7 +119,6 @@ public class MqttService extends LifecycleService {
             protocol = "0";
         }
 
-        diskExecutor = Executors.newSingleThreadExecutor();
         udpExecutor = Executors.newSingleThreadExecutor();
         mqttExecutor = Executors.newSingleThreadExecutor();
         dataExecutor = Executors.newSingleThreadExecutor();
@@ -119,7 +127,9 @@ public class MqttService extends LifecycleService {
         dataExecutor.execute(this::process_data);
 
         if (protocol.equals("0")) {
-            start_UDP_Stream();
+            if(start_UDP_Stream()){
+                Log.d("UDP Stream", "Started");
+            }
         }
 
         // Instantiate our client and connect to it
@@ -181,7 +191,6 @@ public class MqttService extends LifecycleService {
                     sensorData.getLinearAccelerometer().getZ() + ";";
             sensorDataBuffer.add(data);
 
-//            diskExecutor.execute(() -> sensorDataDao.insert(sensorData));
         });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -307,24 +316,26 @@ public class MqttService extends LifecycleService {
                     //if the message is meant for this device>>>
                     String deviceId;
                     String activity;
-                    float location_x;
-                    float location_y;
+                    String location_x;
+                    String location_y;
                     try {
                         if (values.length > 0 && values[0].equals(mDeviceId)) {
                             deviceId = values[0];
                             if (values.length > 1) {
                                 activity = values[1];
                                 Log.d("Received", "Activity: " + activity);
+
+                                if (values.length > 2) {
+                                    location_x = values[2].split(",", 2)[0];
+                                    location_y = values[2].split(",", 2)[1];
+                                    Log.d("Received", "Location : (" + location_x + ", " + location_y + ")");
+                                    sendBroadcastMessage(activity, location_x, location_y);
+
+                                } else {
+                                    Log.d("Mqtt_Sub", "No Location specific data provided" + values.toString());
+                                }
                             } else {
                                 Log.d("Mqtt_Sub", "No activity specific data provided" + values);
-                            }
-                            if (values.length > 2) {
-                                location_x = Float.parseFloat(values[2].split(",", 2)[0]);
-                                location_y = Float.parseFloat(values[2].split(",", 2)[1]);
-                                Log.d("Received", "Location : (" + location_x + ", " + location_y + ")");
-
-                            } else {
-                                Log.d("Mqtt_Sub", "No Location specific data provided" + values.toString());
                             }
                         } else {
                             Log.d("Mqtt_Sub", "No device specific data provided" + values);
@@ -360,7 +371,7 @@ public class MqttService extends LifecycleService {
 
                     } else {
                         // handle successful publish, e.g. logging or incrementing a metric
-                        Log.d("Published", "" + new String(publish.getPayloadAsBytes(), StandardCharsets.UTF_8));
+//                        Log.d("Published", "" + new String(publish.getPayloadAsBytes(), StandardCharsets.UTF_8));
 
                     }
                 });
@@ -390,7 +401,8 @@ public class MqttService extends LifecycleService {
                     //Do nothing when the data is not enough
                     continue;
                 }
-                if (firstRound && sensorDataBuffer.size() >= bufferSize || sensorDataBuffer.size() == windowEnd + bufferSize) {
+                //if (firstRound && sensorDataBuffer.size() >= bufferSize || sensorDataBuffer.size() == windowEnd + bufferSize) {
+                if (sensorDataBuffer.size() >= bufferSize) {
                     // We've gotten enough data for this buffer
                     Log.d("Buffer", "At least " + bufferSize + " values of data have been obtained. Data Count: " + sensorDataBuffer.size());
                     firstRound = false;
@@ -398,7 +410,11 @@ public class MqttService extends LifecycleService {
                     // we are only interested in the current buffer's elements
 
                     try {
-                        sample = (String) sensorDataBuffer.subList(sensorDataBuffer.size() - bufferSize, sensorDataBuffer.size()).stream().map(Object::toString).collect(Collectors.joining(""));
+                        //Log.d("Before", "" + sensorDataBuffer.size());
+                        sample = (String) sensorDataBuffer.subList(0, bufferSize).stream().map(Object::toString).collect(Collectors.joining(""));
+                        //Log.d("Still Before", "" + sensorDataBuffer.size());
+                        sensorDataBuffer.subList(0, bufferSize).clear();
+                        //Log.d("After", "" + sensorDataBuffer.size());
                     } catch (Exception ex) {
                         Log.d("Data Issue", "Issue with sample: " + sample);
                         ex.printStackTrace();
@@ -406,7 +422,7 @@ public class MqttService extends LifecycleService {
                     }
 
                     String finalSample = sample;
-                    Log.d("data", finalSample);
+                    //Log.d("data", finalSample);
                     if (protocol.equals("0")) {
                         udpExecutor.execute(() ->
                                 UDPThread.send(finalSample)
@@ -420,8 +436,18 @@ public class MqttService extends LifecycleService {
             } catch (Exception ex) {
                 System.out.println("An Exception occured");
                 ex.printStackTrace();
-                continue;
             }
+        }
+    }
+
+    private void sendBroadcastMessage(String activity, String location_x, String location_y){
+        Log.d("Brodcast", "Brodcast Initiated: " + activity + ", (" + location_x + "," + location_y + ")");
+        if(activity != null && location_x != null && location_y != null){
+            Intent intent = new Intent(ACTION_LOCATION_BROADCAST);
+            intent.putExtra(EXTRA_ACTIVITY, activity);
+            intent.putExtra(EXTRA_LOCATION_X, location_x);
+            intent.putExtra(EXTRA_LOCATION_Y, location_y);
+            LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
         }
     }
 }

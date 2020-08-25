@@ -1,7 +1,9 @@
 package com.ispl.digitalcompanion.ui.home;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,19 +13,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.ispl.digitalcompanion.R;
-import com.ispl.digitalcompanion.data.db.AppDatabase;
-import com.ispl.digitalcompanion.data.db.SensorDataDao;
 import com.ispl.digitalcompanion.databinding.HomeFragmentBinding;
 import com.ispl.digitalcompanion.service.MqttService;
 
+import java.util.Locale;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -44,6 +47,8 @@ public class HomeFragment extends Fragment implements SharedPreferences.OnShared
 
     private long reportStartTime = 0;
 //    private long lastReportedTime = 0;
+    IntentFilter filter = new IntentFilter(MqttService.ACTION_LOCATION_BROADCAST);
+    private BroadcastReceiver activityLocationBroadcast;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -62,8 +67,6 @@ public class HomeFragment extends Fragment implements SharedPreferences.OnShared
 
         Intent reportServiceIntent =
                 new Intent(getContext(), MqttService.class);
-
-        SensorDataDao sensorDataDao = AppDatabase.getDatabase(this.getContext()).sensorDataDao();
 
         sharedPreferences = this.getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
 
@@ -89,6 +92,19 @@ public class HomeFragment extends Fragment implements SharedPreferences.OnShared
                 sharedPreferences.edit().putBoolean(MqttService.REQUESTING_REPORT, false).apply();
             });
         });
+
+        //text views that are updated via the broadcast receiver
+//         final TextView activityText = (Text) R.s
+        activityLocationBroadcast = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.d("Results from Mqtt:", ""+ intent.getExtras());
+                binding.activityText.setText(intent.getStringExtra(MqttService.EXTRA_ACTIVITY));
+                binding.locationText.setText("(" +
+                        intent.getStringExtra(MqttService.EXTRA_LOCATION_X) + "," +
+                        intent.getStringExtra(MqttService.EXTRA_LOCATION_Y) + ")");
+            }
+        };
 
         return root;
     }
@@ -133,12 +149,14 @@ public class HomeFragment extends Fragment implements SharedPreferences.OnShared
     public void onStart() {
         super.onStart();
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(activityLocationBroadcast, filter);
     }
 
     @Override
     public void onStop() {
-        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
         super.onStop();
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(activityLocationBroadcast);
     }
 
     @Override

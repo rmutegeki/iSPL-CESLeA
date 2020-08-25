@@ -20,6 +20,7 @@ public class HomeViewModel extends AndroidViewModel {
 
         dataReport = Transformations.switchMap(reportInterval, input ->
                 SensorLiveData.getInstance(application).reportInterval(input));
+
     }
 
     LiveData<SensorData> getDataReport() {
