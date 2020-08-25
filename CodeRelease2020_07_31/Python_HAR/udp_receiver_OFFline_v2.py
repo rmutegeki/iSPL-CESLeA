@@ -9,8 +9,8 @@ from concurrent.futures.thread import ThreadPoolExecutor
 
 log = logging.getLogger('udp_server')
 
-ip_address = ""
-port_number = ""
+ip_address = "155.230.15.110"
+port_number = "5600"
 dt = datetime.datetime.now()
 RAW_DATA_FILE = f"data/offline/raw_data_{dt.date()}_{dt.hour}-{dt.minute}-{dt.second}_device"
 ACTIVITIES = ["WALKING", "STANDING", "SITTING", "LYING", "RUNNING", "IDLE"]
@@ -25,6 +25,7 @@ def udp_loop():
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
         s.bind((host, port))
+
         while True:
             (buffer, addr) = s.recvfrom(128 * 1024)
             data = buffer.decode("ascii")

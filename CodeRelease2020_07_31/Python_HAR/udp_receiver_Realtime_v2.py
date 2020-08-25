@@ -9,8 +9,8 @@ from PIL import ImageTk, Image
 
 log = logging.getLogger('udp_server')
 
-ip_address = ""
-port_number = ""
+ip_address = "155.230.15.110"
+port_number = "5500"
 dt = datetime.datetime.now()
 # RAW_DATA_FILE = f"data/realtime/raw_data_{dt.date()}_{dt.hour}-{dt.minute}-{dt.second}_device"
 RAW_DATA_FILE = "data/realtime/raw_data.txt"
@@ -28,6 +28,7 @@ def udp_loop():
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
         s.bind((host, port))
+        print(host, port)
         while True:
             (buffer, addr) = s.recvfrom(128 * 1024)
             data = buffer.decode("ascii")
