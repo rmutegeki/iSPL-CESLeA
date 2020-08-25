@@ -30,7 +30,6 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -132,29 +131,6 @@ public class MqttService extends LifecycleService {
             }
         }
 
-        // Instantiate our client and connect to it
-//        // create an instance of an Android MQTT client that binds to the Paho Android Service
-//        MqttAndroidClient client =
-//                new MqttAndroidClient(getApplicationContext(), "tcp://" + mIP_Address + ":" + mPort , clientId);
-//        client.setCallback(new MqttCallback() {
-//            @Override
-//            public void connectionLost(Throwable cause) {
-//                System.out.println("Connection was lost!");
-//
-//            }
-//
-//            @Override
-//            public void messageArrived(String topic, MqttMessage message) throws Exception {
-//                System.out.println("Message Arrived!: " + topic + ": " + new String(message.getPayload()));
-//
-//            }
-//
-//            @Override
-//            public void deliveryComplete(IMqttDeliveryToken token) {
-//                System.out.println("Delivery Complete!");
-//            }
-//        });
-
         //Start Mqtt Service
         client = com.hivemq.client.mqtt.MqttClient.builder()
                 .useMqttVersion3()
@@ -170,7 +146,6 @@ public class MqttService extends LifecycleService {
                 .putBoolean(REQUESTING_REPORT, true)
                 .apply();
 
-//        sensorDataDao = AppDatabase.getDatabase(this).sensorDataDao();
         SensorLiveData.getInstance(this).observe(this, sensorData -> {
             if (sensorData == null) {
                 return;

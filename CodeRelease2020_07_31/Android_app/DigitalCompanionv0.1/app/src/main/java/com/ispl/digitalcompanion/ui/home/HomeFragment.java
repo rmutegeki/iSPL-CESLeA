@@ -94,7 +94,6 @@ public class HomeFragment extends Fragment implements SharedPreferences.OnShared
         });
 
         //text views that are updated via the broadcast receiver
-//         final TextView activityText = (Text) R.s
         activityLocationBroadcast = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {

@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">LabelingTool</string>
+    <string name="pub_topic">label</string>
+    <string name="sub_topic">all</string>
+    <string name="ip_address">155.230.15.110</string>
+    <string name="port">1883</string>
+    <string name="walking">WALKING</string>
+    <string name="standing">STANDING</string>
+    <string name="sitting">SITTING</string>
+    <string name="lying">LYING</string>
+    <string name="running">RUNNING</string>
+    <string name="idle">IDLE</string>
+    <string name="connect">Connect</string>
+</resources>
