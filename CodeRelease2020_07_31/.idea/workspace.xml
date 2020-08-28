@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6c6a0c6a-65fa-4b7c-84a6-74c02ed8a331" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/CodeRelease2020_07_31.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CodeRelease2020_07_31.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python_HAR/udp_receiver_OFFline_v2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python_HAR/udp_receiver_OFFline_v2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python_HAR/udp_receiver_Realtime_v2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python_HAR/udp_receiver_Realtime_v2.py" afterDir="false" />
-    </list>
+    <list default="true" id="6c6a0c6a-65fa-4b7c-84a6-74c02ed8a331" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -101,6 +95,7 @@
       <workItem from="1598063620695" duration="599000" />
       <workItem from="1598229965519" duration="1197000" />
       <workItem from="1598320437943" duration="45000" />
+      <workItem from="1598593591956" duration="12000" />
     </task>
     <servers />
   </component>
