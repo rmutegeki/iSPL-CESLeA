@@ -11,6 +11,8 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.util.Log;
 
 import androidx.lifecycle.LifecycleService;
@@ -20,10 +22,10 @@ import com.hivemq.client.mqtt.datatypes.MqttQos;
 import com.hivemq.client.mqtt.mqtt3.Mqtt3AsyncClient;
 import com.ispl.digitalcompanion.MainActivity;
 import com.ispl.digitalcompanion.R;
-import com.ispl.digitalcompanion.UDPThread;
 import com.ispl.digitalcompanion.data.SensorData;
 import com.ispl.digitalcompanion.data.SensorLiveData;
 
+import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -46,8 +48,10 @@ public class MqttService extends LifecycleService {
     private static final String TAG = "MqttService";
     private static final int NOTIFICATION_ID = 1002;
     private static final String CHANNEL_ID = "channel_01";
-    public static DatagramSocket mSocket = null;
-    public static DatagramPacket mPacket = null;
+    //Mqtt Client Config
+    public Mqtt3AsyncClient client;
+    // To keep the CPU on so we can send our data
+    PowerManager powerManager;
     public static String mIP_Address;
     public static String mPort;
     public static String mDeviceId;
@@ -57,8 +61,7 @@ public class MqttService extends LifecycleService {
     public static float windowLength;
     public static int windowSize;
     public static int bufferSize;
-    public Mqtt3AsyncClient client;
-    //Mqtt Client Config
+    WakeLock wakeLock;
     // Generate a random client id
     String clientId = UUID.randomUUID().toString();
     private Executor mqttExecutor;
@@ -71,17 +74,14 @@ public class MqttService extends LifecycleService {
     private List sensorDataBuffer;
     private boolean firstRound = true;
     private int windowEnd = bufferSize;
+    private DatagramSocket mSocket = null;
+    private DatagramPacket mPacket = null;
 
     public static final String
             ACTION_LOCATION_BROADCAST = MqttService.class.getName() + "ActivityLocationBroadcast",
             EXTRA_ACTIVITY = "extra_activity",
             EXTRA_LOCATION_X = "extra_location_x",
             EXTRA_LOCATION_Y = "extra_location_y";
-
-
-    public MqttService() {
-
-    }
 
     @Override
     public void onCreate() {
@@ -183,6 +183,10 @@ public class MqttService extends LifecycleService {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
+        //Let's acquire a wake lock
+        powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DigitalCompanion::MyWakelockTag");
+        wakeLock.acquire(60 * 60 * 1000L /*60 minutes*/);
 
         return START_STICKY;
     }
@@ -190,12 +194,14 @@ public class MqttService extends LifecycleService {
     @Override
     public void onDestroy() {
         stop_UDP_Stream();
-//        client.unsubscribeWith().topicFilter(mSubTopic).send();
+        client.unsubscribeWith().topicFilter(mSubTopic).send();
 
         this.getApplicationContext().getSharedPreferences("pref", MODE_PRIVATE)
                 .edit()
                 .putBoolean(REQUESTING_REPORT, false)
                 .apply();
+        //Let's also release the wake lock to save battery
+        wakeLock.release();
 
         super.onDestroy();
     }
@@ -400,7 +406,7 @@ public class MqttService extends LifecycleService {
                     //Log.d("data", finalSample);
                     if (protocol.equals("0")) {
                         udpExecutor.execute(() ->
-                                UDPThread.send(finalSample)
+                                send(finalSample)
                         );
                     } else {
                         mqttExecutor.execute(() ->
@@ -415,14 +421,28 @@ public class MqttService extends LifecycleService {
         }
     }
 
-    private void sendBroadcastMessage(String activity, String location_x, String location_y){
+    private void sendBroadcastMessage(String activity, String location_x, String location_y) {
         Log.d("Brodcast", "Brodcast Initiated: " + activity + ", (" + location_x + "," + location_y + ")");
-        if(activity != null && location_x != null && location_y != null){
+        if (activity != null && location_x != null && location_y != null) {
             Intent intent = new Intent(ACTION_LOCATION_BROADCAST);
             intent.putExtra(EXTRA_ACTIVITY, activity);
             intent.putExtra(EXTRA_LOCATION_X, location_x);
             intent.putExtra(EXTRA_LOCATION_Y, location_y);
             LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        }
+    }
+
+    private void send(String data) {
+        byte[] bytes;
+        try {
+            bytes = data.getBytes("UTF-8");
+            if (mPacket != null && mSocket != null) {
+                mPacket.setData(bytes);
+                mPacket.setLength(bytes.length);
+                mSocket.send(mPacket);
+            }
+        } catch (NullPointerException | IOException e) {
+            e.printStackTrace();
         }
     }
 }
