@@ -4,8 +4,6 @@ import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.time.LocalDate;
-
 @Entity
 public class SensorData {
 
@@ -23,12 +21,6 @@ public class SensorData {
 
     @Embedded(prefix = "linear-accelerometer-")
     private Position linearAccelerometer;
-
-//    @Embedded(prefix = "activity")
-//    private String activity;
-//
-//    @Embedded(prefix = "location-")
-//    private Location location;
 
     public SensorData() {
 
@@ -82,22 +74,6 @@ public class SensorData {
         this.linearAccelerometer = linearAcc;
     }
 
-//    public String getActivity() {
-//        return activity;
-//    }
-//
-//    public void setActivity(String activity) {
-//        this.activity = activity;
-//    }
-//
-//    public void setActivity(Location location) {
-//        this.location = location;
-//    }
-//
-//    public Location getLocation() {
-//        return location;
-//    }
-
     public static class Position {
 
         private float x;
@@ -133,32 +109,5 @@ public class SensorData {
         public void setZ(float z) {
             this.z = z;
         }
-    }
-
-    public static class Location {
-        private float x;
-        private float y;
-
-        public Location(float x, float y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        public float getX() {
-            return x;
-        }
-
-        public void setX(float x) {
-            this.x = x;
-        }
-
-        public float getY() {
-            return y;
-        }
-
-        public void setY(float y) {
-            this.y = y;
-        }
-
     }
 }

@@ -1,13 +1,9 @@
 import datetime
 import sys
 import time
-import socket
-from queue import Queue
 from threading import Thread
-import numpy as np
 # Deleting files we no longer need
 import os
-import fnmatch
 
 
 all_files = []
