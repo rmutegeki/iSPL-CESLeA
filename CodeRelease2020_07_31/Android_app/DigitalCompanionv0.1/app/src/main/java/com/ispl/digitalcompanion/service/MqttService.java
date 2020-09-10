@@ -35,11 +35,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
+import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 
 public class MqttService extends LifecycleService {
@@ -76,12 +78,18 @@ public class MqttService extends LifecycleService {
     private int windowEnd = bufferSize;
     private DatagramSocket mSocket = null;
     private DatagramPacket mPacket = null;
-
     public static final String
             ACTION_LOCATION_BROADCAST = MqttService.class.getName() + "ActivityLocationBroadcast",
             EXTRA_ACTIVITY = "extra_activity",
             EXTRA_LOCATION_X = "extra_location_x",
-            EXTRA_LOCATION_Y = "extra_location_y";
+            EXTRA_LOCATION_Y = "extra_location_y",
+            EXTRA_HEADING = "extra_heading",
+            EXTRA_STEPS = "extra_steps";
+    private String locx = "-";
+    private String locy = "-";
+    private String activity = "IDLE";
+    private String heading = "-";
+    private String steps = "-";
 
     @Override
     public void onCreate() {
@@ -89,8 +97,8 @@ public class MqttService extends LifecycleService {
         // Initializing our data array list
         sensorDataBuffer = Collections.synchronizedList(new LinkedList<String>());
 
-        //Let's provide the default activity and location
-        sendBroadcastMessage("IDLE", "0.0", "0.0");
+        //Let's provide the default activity, location, heading and steps
+        sendBroadcastMessage(activity, locx, locy, heading, steps);
 
         // Check if the IP and other parameters are set defaults
         if (mIP_Address.isEmpty() || mIP_Address == null) {
@@ -163,7 +171,8 @@ public class MqttService extends LifecycleService {
                     sensorData.getMagneticField().getZ() + "," +
                     sensorData.getLinearAccelerometer().getX() + "," +
                     sensorData.getLinearAccelerometer().getY() + "," +
-                    sensorData.getLinearAccelerometer().getZ() + ";";
+                    sensorData.getLinearAccelerometer().getZ() + "," +
+                    sensorData.getBarometer() + ";";
             sensorDataBuffer.add(data);
 
         });
@@ -294,29 +303,32 @@ public class MqttService extends LifecycleService {
                     Log.d("MQTT", "Received a message: " + message);
                     // Message of the form device_id;activity;location_x,location_y
                     String[] values = message.split(";", 0);
-                    //if the message is meant for this device>>>
-                    String deviceId;
-                    String activity;
-                    String location_x;
-                    String location_y;
                     try {
+                        //Check if the message is meant for this device>>>
                         if (values.length > 0 && values[0].equals(mDeviceId)) {
-                            deviceId = values[0];
+                            // deviceId = values[0]; we don't use this one anywhere
                             if (values.length > 1) {
-                                activity = values[1];
-                                Log.d("Received", "Activity: " + activity);
+                                if (values[1].equals("0") && values.length > 2) {
+                                    activity = values[2];
+                                    Log.d("Received", "Activity: " + activity);
+                                } else if (values[1].equals("1") && values.length > 2) {
+                                    String[] loc = values[2].split(",", 2);
+                                    locx = String.format(Locale.ENGLISH, "%.2f", parseFloat(loc[0]));
+                                    locy = String.format(Locale.ENGLISH, "%.2f", parseFloat(loc[1]));
+                                    Log.d("Received", "Location : (" + locx + ", " + locy + ")");
 
-                                if (values.length > 2) {
-                                    location_x = values[2].split(",", 2)[0];
-                                    location_y = values[2].split(",", 2)[1];
-                                    Log.d("Received", "Location : (" + location_x + ", " + location_y + ")");
-                                    sendBroadcastMessage(activity, location_x, location_y);
+                                } else if (values[1].equals("2") && values.length > 2) {
+                                    steps = values[2];
+                                    Log.d("Received", "Steps: " + steps);
 
-                                } else {
-                                    Log.d("Mqtt_Sub", "No Location specific data provided" + values.toString());
+                                } else if (values[1].equals("3") && values.length > 2) {
+                                    heading = String.format(Locale.ENGLISH, "%.2f", parseFloat(values[2]));
+                                    Log.d("Received", "Heading: " + heading);
+
                                 }
+                                sendBroadcastMessage(activity, locx, locy, heading, steps);
                             } else {
-                                Log.d("Mqtt_Sub", "No activity specific data provided" + values);
+                                Log.d("Mqtt_Sub", "No activity or location specific data provided" + values);
                             }
                         } else {
                             Log.d("Mqtt_Sub", "No device specific data provided" + values);
@@ -421,13 +433,15 @@ public class MqttService extends LifecycleService {
         }
     }
 
-    private void sendBroadcastMessage(String activity, String location_x, String location_y) {
-        Log.d("Brodcast", "Brodcast Initiated: " + activity + ", (" + location_x + "," + location_y + ")");
-        if (activity != null && location_x != null && location_y != null) {
+    private void sendBroadcastMessage(String _activity, String location_x, String location_y, String _heading, String _steps) {
+        Log.d("Brodcast", "Brodcast Initiated: " + _activity + ", (" + location_x + "," + location_y + ")");
+        if (_activity != null && location_x != null && location_y != null && _heading != null && _steps != null) {
             Intent intent = new Intent(ACTION_LOCATION_BROADCAST);
-            intent.putExtra(EXTRA_ACTIVITY, activity);
+            intent.putExtra(EXTRA_ACTIVITY, _activity);
             intent.putExtra(EXTRA_LOCATION_X, location_x);
             intent.putExtra(EXTRA_LOCATION_Y, location_y);
+            intent.putExtra(EXTRA_HEADING, _heading);
+            intent.putExtra(EXTRA_STEPS, _steps);
             LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
         }
     }

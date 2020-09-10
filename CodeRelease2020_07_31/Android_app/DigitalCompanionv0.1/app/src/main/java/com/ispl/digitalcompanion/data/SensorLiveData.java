@@ -22,6 +22,7 @@ public class SensorLiveData extends LiveData<SensorData> implements
     private Sensor gyroscopeSensor;
     private Sensor magneticFieldSensor;
     private Sensor linearAccelerationSensor;
+    private Sensor barometerSensor;
 
     private CountDownTimer timer;
 
@@ -35,6 +36,7 @@ public class SensorLiveData extends LiveData<SensorData> implements
         gyroscopeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         magneticFieldSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         linearAccelerationSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
+        barometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
 
         initTimer(1000);
 
@@ -81,6 +83,8 @@ public class SensorLiveData extends LiveData<SensorData> implements
                 SensorManager.SENSOR_DELAY_GAME);
         sensorManager.registerListener(this, linearAccelerationSensor,
                 SensorManager.SENSOR_DELAY_GAME);
+        sensorManager.registerListener(this, barometerSensor,
+                SensorManager.SENSOR_DELAY_GAME);
         timer.start();
     }
 
@@ -96,28 +100,32 @@ public class SensorLiveData extends LiveData<SensorData> implements
     public void onSensorChanged(SensorEvent sensorEvent) {
         float[] values = sensorEvent.values;
 
-        SensorData.Position data = new SensorData.Position(values[0], values[1], values[2]);
+        if (sensorEvent.sensor.getType() != Sensor.TYPE_PRESSURE) {
+            SensorData.Position data = new SensorData.Position(values[0], values[1], values[2]);
 
-        switch (sensorEvent.sensor.getType()) {
+            switch (sensorEvent.sensor.getType()) {
 
-            case Sensor.TYPE_ACCELEROMETER:
-                sensorData.setAccelerometer(data);
-                break;
+                case Sensor.TYPE_ACCELEROMETER:
+                    sensorData.setAccelerometer(data);
+                    break;
 
-            case Sensor.TYPE_GYROSCOPE:
-                sensorData.setGyroscope(data);
-                break;
+                case Sensor.TYPE_GYROSCOPE:
+                    sensorData.setGyroscope(data);
+                    break;
 
-            case Sensor.TYPE_MAGNETIC_FIELD:
-                sensorData.setMagneticField(data);
-                break;
+                case Sensor.TYPE_MAGNETIC_FIELD:
+                    sensorData.setMagneticField(data);
+                    break;
 
-            case Sensor.TYPE_LINEAR_ACCELERATION:
-                sensorData.setLinearAccelerometer(data);
-                break;
+                case Sensor.TYPE_LINEAR_ACCELERATION:
+                    sensorData.setLinearAccelerometer(data);
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
+        } else {
+            sensorData.setBarometer(values[0]);
         }
         if (!isDelivered) {
             sensorData.setId(System.currentTimeMillis());

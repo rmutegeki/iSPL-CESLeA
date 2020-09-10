@@ -22,16 +22,20 @@ public class SensorData {
     @Embedded(prefix = "linear-accelerometer-")
     private Position linearAccelerometer;
 
+    @Embedded(prefix = "barometer")
+    private float barometer;
+
     public SensorData() {
 
     }
 
     public SensorData(Position accelerometer, Position gyroscope,
-                      Position magneticField, Position linearAcc) {
+                      Position magneticField, Position linearAcc, float barom) {
         this.accelerometer = accelerometer;
         this.gyroscope = gyroscope;
         this.magneticField = magneticField;
         this.linearAccelerometer = linearAcc;
+        this.barometer = barom;
     }
 
     public long getId() {
@@ -72,6 +76,14 @@ public class SensorData {
 
     public void setLinearAccelerometer(Position linearAcc) {
         this.linearAccelerometer = linearAcc;
+    }
+
+    public float getBarometer() {
+        return barometer;
+    }
+
+    public void setBarometer(float barom) {
+        this.barometer = barom;
     }
 
     public static class Position {

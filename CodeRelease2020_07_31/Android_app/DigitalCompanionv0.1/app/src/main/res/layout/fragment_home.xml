@@ -60,7 +60,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:autofillHints=""
-                            android:ems="8"
+                            android:ems="7"
                             android:enabled="@{!started}"
                             android:hint="Server IP Address"
                             android:singleLine="true"
@@ -436,7 +436,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         app:cardElevation="10dp"
-                        app:layout_constraintBottom_toTopOf="@id/localization_map"
+                        app:layout_constraintBottom_toTopOf="@id/steps_card"
                         app:layout_constraintEnd_toStartOf="@id/localization_card"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -463,7 +463,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginBottom="5dp"
                                 android:text="@string/activity"
-                                android:textSize="18sp" />
+                                android:textSize="16sp" />
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -475,7 +475,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginBottom="20dp"
                         app:cardElevation="10dp"
-                        app:layout_constraintBottom_toTopOf="@id/localization_map"
+                        app:layout_constraintBottom_toTopOf="@id/heading_card"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/activity_card"
                         app:layout_constraintTop_toTopOf="parent">
@@ -502,18 +502,88 @@
                                 android:layout_gravity="center"
                                 android:layout_marginBottom="5dp"
                                 android:text="(0.0, 0.0)"
-                                android:textSize="18sp" />
+                                android:textSize="16sp" />
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
-                    <ImageView
-                        android:id="@+id/localization_map"
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:src="@drawable/localization_map_dummy"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/steps_card"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        app:cardElevation="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/activity_card" />
+                        app:layout_constraintEnd_toStartOf="@id/heading_card"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/activity_card">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:ems="6"
+                                android:text="@string/steps_title"
+                                android:textAlignment="center"
+                                android:textSize="20sp" />
+
+                            <TextView
+                                android:id="@+id/steps_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="5dp"
+                                android:text="@string/steps"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/heading_card"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="20dp"
+                        app:cardElevation="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/steps_card"
+                        app:layout_constraintTop_toBottomOf="@id/localization_card">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:ems="6"
+                                android:text="@string/heading_title"
+                                android:textAlignment="center"
+                                android:textSize="20sp" />
+
+                            <TextView
+                                android:id="@+id/heading_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="5dp"
+                                android:text="0.0"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
