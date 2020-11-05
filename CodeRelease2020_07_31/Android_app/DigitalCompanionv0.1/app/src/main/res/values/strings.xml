@@ -24,14 +24,17 @@
     <string name="x_axis_title">x-axis: %.2f</string>
     <string name="y_axis_title">y-axis: %.2f</string>
     <string name="z_axis_title">z-axis: %.2f</string>
-    <string name="ip_address">155.230.15.110</string>
+    <string name="ip_address">192.168.137.1</string>
     <string name="port">1883</string>
     <string name="udp_stream">UDP Stream</string>
     <string name="mqtt_Stream">MQTT Stream</string>
-    <string name="pub_topic">device/1</string>
-    <string name="sub_topic">all</string>
+    <string name="pub_topic">1/1</string>
+    <string name="sub_topic">1</string>
     <string name="activity_title">Activity</string>
     <string name="activity">IDLE</string>
     <string name="location_title">Location</string>
     <string name="location">(%.2f, %.2f)</string>
+    <string name="steps_title">Steps</string>
+    <string name="steps">0</string>
+    <string name="heading_title">Heading</string>
 </resources>

@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -54,7 +55,7 @@ public class HomeFragment extends Fragment implements SharedPreferences.OnShared
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         viewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
+                new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         binding = DataBindingUtil.bind(root);
 
@@ -97,11 +98,13 @@ public class HomeFragment extends Fragment implements SharedPreferences.OnShared
         activityLocationBroadcast = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                Log.d("Results from Mqtt:", ""+ intent.getExtras());
+                Log.d("Results from Mqtt:", "" + intent.getExtras());
                 binding.activityText.setText(intent.getStringExtra(MqttService.EXTRA_ACTIVITY));
                 binding.locationText.setText("(" +
-                        intent.getStringExtra(MqttService.EXTRA_LOCATION_X) + "," +
+                        intent.getStringExtra(MqttService.EXTRA_LOCATION_X) + ", " +
                         intent.getStringExtra(MqttService.EXTRA_LOCATION_Y) + ")");
+                binding.headingText.setText(intent.getStringExtra(MqttService.EXTRA_HEADING));
+                binding.stepsText.setText(intent.getStringExtra(MqttService.EXTRA_STEPS));
             }
         };
 

@@ -312,20 +312,18 @@ public class MqttService extends LifecycleService {
                                     activity = values[2];
                                     Log.d("Received", "Activity: " + activity);
                                 } else if (values[1].equals("1") && values.length > 2) {
-                                    String[] loc = values[2].split(",", 2);
-                                    locx = String.format(Locale.ENGLISH, "%.2f", parseFloat(loc[0]));
-                                    locy = String.format(Locale.ENGLISH, "%.2f", parseFloat(loc[1]));
+                                    // Structure: locx,locy,heading,number_steps
+                                    String[] location_data = values[2].split(",", 4);
+                                    locx = String.format(Locale.ENGLISH, "%.2f", parseFloat(location_data[0]));
+                                    locy = String.format(Locale.ENGLISH, "%.2f", parseFloat(location_data[1]));
+                                    heading = String.format(Locale.ENGLISH, "%.2f", parseFloat(location_data[2]));
+                                    steps = location_data[3];
+
                                     Log.d("Received", "Location : (" + locx + ", " + locy + ")");
-
-                                } else if (values[1].equals("2") && values.length > 2) {
-                                    steps = values[2];
-                                    Log.d("Received", "Steps: " + steps);
-
-                                } else if (values[1].equals("3") && values.length > 2) {
-                                    heading = String.format(Locale.ENGLISH, "%.2f", parseFloat(values[2]));
                                     Log.d("Received", "Heading: " + heading);
-
+                                    Log.d("Received", "Steps: " + steps);
                                 }
+
                                 sendBroadcastMessage(activity, locx, locy, heading, steps);
                             } else {
                                 Log.d("Mqtt_Sub", "No activity or location specific data provided" + values);
@@ -335,6 +333,7 @@ public class MqttService extends LifecycleService {
                         }
                     } catch (ArrayIndexOutOfBoundsException ex) {
                         ex.printStackTrace();
+                        sendBroadcastMessage(activity, locx, locy, heading, steps);
                     }
                 })
                 .send()
