@@ -15,7 +15,7 @@ import math
 
 logging.basicConfig(level=logging.INFO)
 
-# CP's IP: IPv4: 155.230.15.105    ; 192.168.1.77
+# CP's IP: IPv4:
 # sub_topic: x/y: where x is device (user) ID, y is the task (1: sensor data, 2: label data)
 clients = [
     {"broker": "", "port": 1883, "name": "sub1", "sub_topic": "1/1", "pub_topic": "1"}
