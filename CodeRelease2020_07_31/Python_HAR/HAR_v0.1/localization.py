@@ -8,11 +8,10 @@ from pandas import read_csv
 import quaternion
 import time
 from pandas import read_csv
-from matplotlib import pyplot as plt
+# from matplotlib import pyplot as plt
 from scipy.signal import find_peaks
-
-steps = 0
-
+from findpeaks import findpeaks
+steps = []
 new_min = 20
 min = 20
 new_max = 0
@@ -23,12 +22,11 @@ q = [1.0, 0.0, 0.0, 0.0]
 pitch = 0
 heading = 0
 roll = 0
-
-step_len = 0.65
+step_len = 0.25
 steps = 0
 alpha = 0.9
 sample_old = 9.81
-threshold = 5.81
+threshold = 9.81
 steps = 0
 n_signals = 12  # Number of sensor signal used in ONE sensor (Ex: Acc_xyz, Gyr_xyz, linearAcc_xyz)
 sig_start = 0  # The 1st index of sensor signal in the sample (check data formart)
@@ -42,8 +40,6 @@ acc = np.zeros((len(raw_data_file), 3))
 gyro = np.zeros((len(raw_data_file), 3))
 mag = np.zeros((len(raw_data_file), 3))
 ts = np.zeros((len(raw_data_file), 1))
-
-
 def line_to_array(_line="1, 2", _delim=",", _dtype=float):
     """ This function converts a line of sensor data to an array"""
     # _arr = _line
@@ -51,16 +47,18 @@ def line_to_array(_line="1, 2", _delim=",", _dtype=float):
     _arr = np.array(_arr, dtype=float)
     # print(_arr)
     return _arr
-
-
 _data_list = []
 _win_data = []
 norm_acc = []
-
+d=100
+j=100
+k=0
 ax, ay, az = 0, 0, 0
 mx, my, mz = 0, 0, 0
 position = np.zeros((len(raw_data_file), 2))
 positionx, positiony = 0, 0
+start=time.time()
+start_of_step=time.time()
 try:
     with open(raw_data_file, 'r') as _file:
         while True:
@@ -77,6 +75,7 @@ try:
                 _win_data = np.array(_data_list[0:win_size])
                 ts = _win_data[:, 0]
                 acc = _win_data[:, 2:5]
+                #print(acc)
                 gyro = _win_data[:, 5:8]
                 mag = _win_data[:, 8:11]
                 norm_acceleration = np.zeros((len(acc), 1))
@@ -107,13 +106,24 @@ try:
                     # Normalise accelerometer measurement
                     norm_acceleration = sqrt(acc[i, 0] * acc[i, 0] + acc[i, 1] * acc[i, 1] + acc[i, 2] * acc[i, 2])
                     norm_acceleration = 1 / norm_acceleration  # use reciprocal for division
-                    # norm_acc.append(norm_acceleration)
-                    # print(norm_acceleration)
-                    peaks, _ = find_peaks(norm_acc, height=0)
-                    # print("Total steps: %d " % len(peaks))
+                    norm_acc.append(norm_acceleration)
+                    #print("----------------------",norm_acceleration)
+                    peaks, _ = find_peaks(norm_acc,height=0.11148407402704925)
+                    #print(peaks)
+                    # fp=findpeaks(method='peakdetect',lookahead=1)
+                    # result=fp.fit(norm_acc)
+                    #print(result)
+                    #print("Total steps: %d " % len(peaks))
                     ax = acc[i, 0] * norm_acceleration
                     ay = acc[i, 1] * norm_acceleration
                     az = acc[i, 2] * norm_acceleration
+                    ################################
+                    #########################################
+                    #norm=sqrt(ax*ax+ay*ay+az*az)
+                    # result = fp.fit(norm)
+                    #print(norm)
+                    # peaks, _ = find_peaks(norm, height=0)
+                    # print("Total steps: %d " % len(peaks))
                     """ MAGNETOMETER"""
                     # Normalise magnetometer measurement
                     norm_magnetometer = sqrt(mag[i, 0] * mag[i, 0] + mag[i, 1] * mag[i, 1] + mag[i, 2] * mag[i, 2])
@@ -176,25 +186,76 @@ try:
                     q4 += qDot4 * (ts / 1000)
                     norm_quaternion = 1 / sqrt(q1[i] * q1[i] + q2[i] * q2[i] + q3[i] * q3[i] + q4[i] * q4[i])
                     q = q1 * norm_quaternion, q2 * norm_quaternion, q3 * norm_quaternion, q4 * norm_quaternion
-                    heading = degrees(atan2(2.0 * (q[1][i] * q[2][i] + q[0][i] * q[3][i]),
+                    heading2 = degrees(atan2(2.0 * (q[1][i] * q[2][i] + q[0][i] * q[3][i]),
                                             q[0][i] * q[0][i] + q[1][i] * q[1][i] - q[2][i] * q[2][i] - q[3][i] * q[3][
                                                 i]))
+                    if gyro[i, 2]<0:gyro[i, 2]=gyro[i, 2]+360
+                    heading=165-gyro[i, 2]
+
                     if heading < 0: heading += 360
                     heading_keep_rad = math.radians(heading)
                     heading_quantized = round(heading / 90) * 90  # -90
                     heading_rad = math.radians(heading_quantized)
-                    # print(heading)
-                    positionx += step_len * math.cos(heading)
-                    positiony += step_len * math.sin(heading)
-                    position[i, :] = [positionx, positiony]
-                    print(positionx, positiony)
+                    #print("Heading rad:", heading_rad)
+                    #print("............",heading)
+                    #start of new possible step
+                    # acc[i,2] = (1-alpha) * acc[i,2] + alpha * sample_old
+                    # if (acc[i,2]>sample_old) and (acc[i,2]>threshold) and (threshold>sample_old):
+                    #     start_of_step =time.time()
+                    #     print(",,,,,,,,,,",start_of_step)
+                    # #check if we have a step
+                    # if(acc[i,2]<sample_old) and (acc[i,2]<threshold) and (threshold<sample_old):
+                    #     end_of_step=time.time()
+                    #     print("****",end_of_step)
+                    #     step_condition_1 = step_condition_2 = False
+                    #     if end_of_step - start_of_step > 0.1: step_condition_1 = True
+                    #     if (new_max-new_min) > 2: step_condition_2 =True
+                    #     if step_condition_1 and step_condition_2:
+                    #         positionx += step_len * math.cos(heading)
+                    #         positiony += step_len * math.sin(heading)
+                    #         position[i, :] = [positionx, positiony]
+                    #     new_max = 0
+                    #     new_min = 20
+                    heading=round(heading, 2)
+                    print("Heading:", heading)
+                    if (heading !=165.0 ):
+                        print(",,,,,")
+                    #     positionx[i+1]=positionx[i]
+                    #     positiony[i+1]=positiony[i]
+                    # else:
+                        positionx += step_len * math.cos(heading)
+                        positiony += step_len * math.sin(heading)
+                        position[i, :] = [positionx, positiony]
+                    #position estimation
+
+                    #print(positionx, positiony)
+                    # k=k+1
+                    # if d==k:
+                    #     position=np.mean(position, axis=0)
+                    # d=d+j
+                    #print(d)
+                    #position=math.trunc(position)
+                    #print(position)
+                    sample_old=acc[i,2]
+                    #update new min, new max for this step
+                    if(acc[i,2] <new_min):
+                        new_min=acc[i,2]
+                    elif (acc[i,2]>new_max):
+                        new_max = acc[i,2]
+                    #calculate min max for next threshold
+                    if(acc[i,2]<min):
+                        min=acc[i,2]
+                    elif(acc[i,2]>max):
+                        max=acc[i,2]
+
+
 
                     with open(LOCATION_RESULT_FILE, "a") as position_file:
-                        position_file.write(f"{round(positionx, 2)},{round(positiony, 2)},{round(heading, 2)},{len(peaks)}")
+                        message = f"{round(positionx, 2)},{round(positiony, 2)},{round(heading, 2)},{len(peaks)}"
+                        print("*************************************", message)
+                        position_file.write(message)
                         position_file.write("\n")
                     del _data_list[0: 12]
             time.sleep(0.01)
-
-
 except FileNotFoundError as e:
     print("Error at reading file: ", e)
