@@ -15,12 +15,15 @@ import math
 
 logging.basicConfig(level=logging.INFO)
 
-# CP's IP: IPv4:
 # sub_topic: x/y: where x is device (user) ID, y is the task (1: sensor data, 2: label data)
+
+# constants:
+BROKER_IP = "123.456.78.9"
+
 clients = [
-    {"broker": "", "port": 1883, "name": "sub1", "sub_topic": "1/1", "pub_topic": "1"}
-    # , {"broker": "", "port": 1883, "name": "sub2", "sub_topic": "2", "pub_topic": "2"}
-    # , {"broker": "", "port": 1883, "name": "sub3", "sub_topic": "3", "pub_topic": "2"}
+    {"broker": BROKER_IP, "port": 1883, "name": "sub1", "sub_topic": "1/1", "pub_topic": "1"}
+    # , {"broker": BROKER_IP, "port": 1883, "name": "sub2", "sub_topic": "2", "pub_topic": "2"}
+    # , {"broker": BROKER_IP, "port": 1883, "name": "sub3", "sub_topic": "3", "pub_topic": "2"}
 ]
 n_clients = len(clients)
 n_users = n_clients                    # number of sensors (same with nclients)

@@ -4,7 +4,7 @@
 - For REALTIME
 - For sensor data collected from smartphone
 - Split data into fixed length windows with overlap
-- Raw data format: [time, device_id, Acc_xyz, Gyr_xyz, Mag_xyz, LinearAcc_xyz]
+- Raw data format: [time, device_id, Acc_xyz, Gyr_xyz, Mag_xyz, LinearAcc_xyz, Barometer]
 - Window data format: each line is data of 1 window reshape from [win_size, n_signals]
 
 """
@@ -12,13 +12,13 @@ import numpy as np
 from pandas import read_csv
 import time
 
-n_signals = 12   # Number of sensor signal used in ONE sensor (Ex: Acc_xyz, Gyr_xyz, Mag_xyz, linearAcc_xyz)
+n_signals = 13   # Number of sensor signal used in ONE sensor (Ex: Acc_xyz, Gyr_xyz, Mag_xyz, linearAcc_xyz)
 sig_start = 2   # The 1st index of sensor signal in the sample (check data formart)
 
 freq = 50  # Sampling rate (unit: samples/second)
 win_time = 2.56  # Time duration of a window (unit: second)
 win_size = int(freq * win_time)  # Size of a window (unit: data samples)
-overlap = int(win_size * 0.8)
+overlap = int(win_size * 0.7)
 
 
 raw_data_file = f"data/realtime/raw_data.txt"

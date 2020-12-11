@@ -6,9 +6,11 @@ from keras.utils import to_categorical, plot_model
 from keras.models import Sequential
 from keras.layers import LSTM, GRU, Dense
 from keras.layers import Conv1D, MaxPooling1D, SeparableConv1D
+from keras.layers import Conv2D, MaxPooling2D
 from keras.layers import TimeDistributed, Flatten, Reshape, Dropout
 from matplotlib import pyplot as plt
 from sklearn.metrics import confusion_matrix
+from confusion_matrix_pretty_print import pretty_plot_confusion_matrix
 
 
 
@@ -61,6 +63,50 @@ def model_CNN1D_LSTM_v1(input_shape=(1, 2, 3), n_classes=5, n_hiddens=64):
     model.compile(loss='categorical_crossentropy', optimizer='adam')
     return model
 
+
+def model_CNN1D_LSTM_v2(input_shape=(1, 2, 3), n_classes=5, n_hiddens=64):
+    """ CNN1D_LSTM version 1: Dapply CNN to window
+    - Input data format: [None, n_timesteps, n_signals, 1]"""
+    model = Sequential()
+
+    model.add(Conv2D(filters=32, kernel_size=3, activation='relu', padding='same', data_format="channels_last", input_shape=input_shape))
+    model.add(Conv2D(filters=64, kernel_size=3, activation='relu'))
+    model.add(MaxPooling2D(pool_size=(2, 1)))
+    model.add(Conv2D(filters=64, kernel_size=(3, 1), activation='relu'))
+    # model.add(Conv1D(filters=32, kernel_size=3, activation='relu'))
+    model.add(MaxPooling2D(pool_size=2))
+    model.add(Reshape((model.output_shape[1], -1)))
+    model.add(LSTM(n_hiddens))
+    model.add(Dropout(0.5))
+    model.add(Dense(n_hiddens, activation='relu'))
+    model.add(Dense(n_classes, activation='softmax'))
+    model.compile(loss='categorical_crossentropy', optimizer='adam')
+    return model
+
+
+def model_CNN2Dlstm_BiLSTM_v1(input_shape=None, n_classes=None, n_hiddens=None, merge_mode=None):
+    model = Sequential()
+
+    model.add(TimeDistributed(Conv2D(filters=32, kernel_size=3, activation='relu', padding='same', data_format="channels_last"),
+                              input_shape=input_shape))
+    model.add(TimeDistributed(Conv2D(filters=64, kernel_size=3, activation='relu', padding='same')))
+    model.add(TimeDistributed(MaxPooling2D(pool_size=(2, 1))))
+    # model.add(TimeDistributed(Conv2D(filters=64, kernel_size=5, activation='relu')))
+    model.add(TimeDistributed(Conv2D(filters=32, kernel_size=(3, 1), activation='relu')))
+    model.add(TimeDistributed(MaxPooling2D(pool_size=2)))
+    print(model.output_shape)
+    model.add(TimeDistributed(Reshape((model.output_shape[2], -1))))       # 31 for UCIv2
+    model.add(TimeDistributed(LSTM(n_hiddens, return_sequences=True)))
+    print(model.output_shape)
+    model.add(TimeDistributed(Flatten()))
+    model.add(LSTM(n_hiddens, return_sequences=True))
+    model.add(TimeDistributed(Dense(n_classes, activation='softmax')))
+    model.compile(loss='categorical_crossentropy', optimizer='adam')
+    return model
+
+
+
+
 """
 #************************************ RESULTS VISUALIZATION functions ************************************#
 """
@@ -85,6 +131,16 @@ def plot_process(_history, _title):
     plt.ylabel('Loss')
     plt.show()
 
+# plot confusion matrix
+def plot_CM(_y_cm, _y_predict, _class_names, _title):
+    cm = confusion_matrix(_y_cm, _y_predict)
+    cm = cm.tolist()
+    df_cm = pd.DataFrame(cm, index=[i for i in _class_names], columns=[i for i in _class_names])
+    pretty_plot_confusion_matrix(df_cm,_title=_title)
+
+    # from draft_Cm_sklearn import plot_confusion_matrix
+    # plot_confusion_matrix(_y_cm, _y_predict, classes=_class_names)
+    # plt.show()
 
 # summarize scores
 def summarize_results(_scores):
